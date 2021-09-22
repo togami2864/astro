@@ -101,4 +101,13 @@ React('uses the new JSX transform', async () => {
   assert.ok(jsxRuntime, 'react/jsx-runtime is used for the component');
 });
 
+React('Can render both of the two types of class components', async () => {
+  const result = await runtime.load('/class-component');
+  assert.ok(!result.error, `build error: ${result.error}`);
+
+  const $ = doc(result.contents);
+  assert.equal($('#class-component').text(), 'Hello World!');
+  assert.equal($('#pure-component').text(), 'Hello World!');
+});
+
 React.run();
